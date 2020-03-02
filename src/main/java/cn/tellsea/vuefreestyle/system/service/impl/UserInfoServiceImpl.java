@@ -1,6 +1,9 @@
 package cn.tellsea.vuefreestyle.system.service.impl;
 
+import cn.tellsea.vuefreestyle.system.entity.UserInfo;
+import cn.tellsea.vuefreestyle.system.mapper.UserInfoMapper;
 import cn.tellsea.vuefreestyle.system.service.UserInfoService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,5 +13,5 @@ import org.springframework.stereotype.Service;
  * @date : 2020/3/2
  */
 @Service
-public class UserInfoServiceImpl implements UserInfoService {
+public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements UserInfoService {
 }

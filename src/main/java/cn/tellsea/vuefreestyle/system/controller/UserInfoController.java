@@ -1,5 +1,6 @@
 package cn.tellsea.vuefreestyle.system.controller;
 
+import cn.tellsea.vuefreestyle.common.controller.BaseController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,5 +12,5 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("userInfo")
-public class UserInfoController {
+public class UserInfoController extends BaseController {
 }
