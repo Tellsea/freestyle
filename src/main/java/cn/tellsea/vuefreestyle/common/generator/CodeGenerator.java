@@ -20,13 +20,13 @@ import java.util.Scanner;
 public class CodeGenerator {
 
     // 数据库 URL
-    private static final String URL = "jdbc:mysql://127.0.0.1:3306/vue_freestyle?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String URL = "jdbc:mysql://47.107.171.232:3306/vue_freestyle?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     // 数据库驱动
     private static final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
     // 数据库用户名
     private static final String USERNAME = "root";
     // 数据库密码
-    private static final String PASSWORD = "123456";
+    private static final String PASSWORD = "Root123!@#";
     // @author 值
     private static final String AUTHOR = "Tellsea";
     // 包的基础路径
@@ -90,7 +90,7 @@ public class CodeGenerator {
         strategy.setRestControllerStyle(true);
         strategy.setInclude(scanner("表名"));
         strategy.setSuperEntityColumns("id");
-        strategy.setControllerMappingHyphenStyle(true);
+        strategy.setControllerMappingHyphenStyle(false);
         strategy.setTablePrefix(packageConfig.getModuleName() + "_");
         generator.setStrategy(strategy);
         generator.setTemplateEngine(new FreemarkerTemplateEngine());
@@ -102,7 +102,9 @@ public class CodeGenerator {
         System.out.println(("请输入" + tip + "："));
         if (scanner.hasNext()) {
             String ipt = scanner.next();
-            if (StringUtils.isNotBlank(ipt)) return ipt;
+            if (StringUtils.isNotBlank(ipt)) {
+                return ipt;
+            }
         }
         throw new MybatisPlusException("请输入正确的" + tip + "！");
     }
