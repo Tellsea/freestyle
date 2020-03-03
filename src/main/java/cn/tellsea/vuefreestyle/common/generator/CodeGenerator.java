@@ -1,12 +1,17 @@
 package cn.tellsea.vuefreestyle.common.generator;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
+import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -29,6 +34,8 @@ public class CodeGenerator {
     private static final String PASSWORD = "Root123!@#";
     // @author 值
     private static final String AUTHOR = "Tellsea";
+    // 模块名称
+    private static final String MODULE_NAME = "system";
     // 包的基础路径
     private static final String BASE_PACKAGE_URL = "cn.tellsea.vuefreestyle";
     // xml文件路径
@@ -58,8 +65,8 @@ public class CodeGenerator {
         globalConfig.setOpen(false);
         globalConfig.setSwagger2(true);
         globalConfig.setFileOverride(false);
-        globalConfig.setBaseColumnList(true);
-        globalConfig.setBaseResultMap(true);
+        globalConfig.setBaseColumnList(false);
+        globalConfig.setBaseResultMap(false);
         generator.setGlobalConfig(globalConfig);
 
         // 数据源配置
@@ -72,13 +79,13 @@ public class CodeGenerator {
 
         // 包配置
         PackageConfig packageConfig = new PackageConfig();
-        packageConfig.setModuleName("test");
+        packageConfig.setModuleName(MODULE_NAME);
         packageConfig.setParent(BASE_PACKAGE_URL);
         generator.setPackageInfo(packageConfig);
 
         // 配置自定义代码模板
         TemplateConfig templateConfig = new TemplateConfig();
-        templateConfig.setXml(XML_MAPPER_TEMPLATE_PATH);
+        templateConfig.setXml(null);
         templateConfig.setMapper(MAPPER_TEMPLATE_PATH);
         templateConfig.setEntity(ENTITY_TEMPLATE_PATH);
         templateConfig.setService(SERVICE_TEMPLATE_PATH);
@@ -95,9 +102,33 @@ public class CodeGenerator {
         strategy.setInclude(scanner("表名"));
         // strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(false);
-        strategy.setTablePrefix(packageConfig.getModuleName() + "_");
+        // strategy.setTablePrefix(packageConfig.getModuleName() + "_");
         generator.setStrategy(strategy);
         generator.setTemplateEngine(new FreemarkerTemplateEngine());
+
+        // 自定义配置
+        InjectionConfig cfg = new InjectionConfig() {
+            @Override
+            public void initMap() {
+                // to do nothing
+            }
+        };
+
+        // 自定义输出配置
+        List<FileOutConfig> focList = new ArrayList<>();
+        focList.add(new FileOutConfig(XML_MAPPER_TEMPLATE_PATH + ".ftl") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                return projectPath
+                        + "/" + XML_PACKAGE_URL
+                        + "/" + MODULE_NAME
+                        + "/" + tableInfo.getEntityName() + StringPool.DOT_XML;
+            }
+        });
+
+        cfg.setFileOutConfigList(focList);
+        generator.setCfg(cfg);
+
         generator.execute();
     }
 

@@ -13,5 +13,4 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ControllerLog {
 
-    String value() default "";
 }

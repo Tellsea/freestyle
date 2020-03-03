@@ -1,24 +1,12 @@
 package cn.tellsea.vuefreestyle;
 
-import cn.tellsea.vuefreestyle.system.entity.UserInfo;
-import cn.tellsea.vuefreestyle.system.mapper.UserInfoMapper;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
 
 @SpringBootTest
 @MapperScan("cn.tellsea.vuefreestyle.*.mapper")
 class VueFreestyleApplicationTests {
-
-    @Autowired
-    private UserInfoMapper userInfoMapper;
 
     @Test
     void contextLoads() {
@@ -52,22 +40,22 @@ class VueFreestyleApplicationTests {
 //        int count = userInfoMapper.update(userInfo, updateWrapper);
 //        System.out.println(count);
 
-        LambdaQueryWrapper<UserInfo> lambda = new QueryWrapper<UserInfo>().lambda();
-        LambdaQueryWrapper<UserInfo> queryWrapper = new LambdaQueryWrapper<>();
-        LambdaQueryWrapper<UserInfo> lambdaQuery = Wrappers.<UserInfo>lambdaQuery();
-        lambdaQuery.like(UserInfo::getUserName, "te")
-                .lt(UserInfo::getLoginTimes, 0);
-        List<Object> objects = userInfoMapper.selectObjs(lambdaQuery);
-        objects.forEach(System.out::println);
-//
-        Page<UserInfo> page = new Page<>(1, 10);
-        Page<UserInfo> infoPage = userInfoMapper.selectPage(page, null);
-        System.out.println(infoPage);
-        System.out.println(page.getCurrent());
-        System.out.println(page.getOrders());
-        System.out.println(page.getSize());
-        System.out.println(page.getRecords());
-        System.out.println(page.getTotal());
+//        LambdaQueryWrapper<UserInfo> lambda = new QueryWrapper<UserInfo>().lambda();
+//        LambdaQueryWrapper<UserInfo> queryWrapper = new LambdaQueryWrapper<>();
+//        LambdaQueryWrapper<UserInfo> lambdaQuery = Wrappers.<UserInfo>lambdaQuery();
+//        lambdaQuery.like(UserInfo::getUserName, "te")
+//                .lt(UserInfo::getLoginTimes, 0);
+//        List<Object> objects = userInfoMapper.selectObjs(lambdaQuery);
+//        objects.forEach(System.out::println);
+
+//        Page<UserInfo> page = new Page<>(1, 10);
+//        Page<UserInfo> infoPage = userInfoMapper.selectPage(page, null);
+//        System.out.println(infoPage);
+//        System.out.println(page.getCurrent());
+//        System.out.println(page.getOrders());
+//        System.out.println(page.getSize());
+//        System.out.println(page.getRecords());
+//        System.out.println(page.getTotal());
 
     }
 }

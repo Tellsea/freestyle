@@ -93,7 +93,7 @@ public class DruidConfig {
             datasource.setMaxWait(maxWait);
             datasource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
             datasource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
-            datasource.setValidationQuery(validationQuery);
+            //datasource.setValidationQuery(validationQuery);
             datasource.setTestWhileIdle(testWhileIdle);
             datasource.setTestOnBorrow(testOnBorrow);
             datasource.setTestOnReturn(testOnReturn);

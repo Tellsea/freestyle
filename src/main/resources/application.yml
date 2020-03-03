@@ -16,15 +16,18 @@ spring:
     maxWait: 60000
     timeBetweenEvictionRunsMillis: 60000
     minEvictableIdleTimeMillis: 300000
-#    validationQuery: SELECT 1 FROMDUAL
+    validationQuery: SELECT 1 FROMDUAL
     testWhileIdle: true
     testOnBorrow: false
     testOnReturn: false
 #    filters: stat,wall,log4j
     logSlowSql: true
+
+# mybatis plus
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:/mapper/*.xml
 
-vue-freestyle:
+vuefreestyle:
 

@@ -7,11 +7,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
- * 用户表 Service 接口层实现类
- *
- * @author: Tellsea
- * @date : 2020/3/2
- */
+* 用户表 Service接口实现类
+*
+* @author Tellsea
+* @date 2020-03-03
+*/
 @Service
 public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements UserInfoService {
+
 }

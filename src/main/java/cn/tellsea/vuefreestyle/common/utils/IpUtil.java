@@ -88,7 +88,7 @@ public class IpUtil {
         if (ip != null && ip.indexOf(",") != -1) {
             ip = ip.substring(ip.lastIndexOf(",") + 1, ip.length()).trim();
         }
-        return ip;
+        return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
     }
 
 
