@@ -15,7 +15,7 @@ import java.util.Date;
 @Setter
 public class UserInfo {
 
-    private Integer id;
+//    private Integer id;
 
     /**
      * 用户名

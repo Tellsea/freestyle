@@ -2,10 +2,8 @@ package cn.tellsea.vuefreestyle;
 
 import cn.tellsea.vuefreestyle.system.entity.UserInfo;
 import cn.tellsea.vuefreestyle.system.mapper.UserInfoMapper;
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.jupiter.api.Test;
@@ -13,12 +11,10 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @SpringBootTest
-@MapperScan("cn.tellsea.vuefreestyle.system.mapper")
+@MapperScan("cn.tellsea.vuefreestyle.*.mapper")
 class VueFreestyleApplicationTests {
 
     @Autowired
@@ -56,14 +52,14 @@ class VueFreestyleApplicationTests {
 //        int count = userInfoMapper.update(userInfo, updateWrapper);
 //        System.out.println(count);
 
-//        LambdaQueryWrapper<UserInfo> lambda = new QueryWrapper<UserInfo>().lambda();
-//        LambdaQueryWrapper<UserInfo> queryWrapper = new LambdaQueryWrapper<>();
-//        LambdaQueryWrapper<UserInfo> lambdaQuery = Wrappers.<UserInfo>lambdaQuery();
-//        lambdaQuery.like(UserInfo::getUserName, "te")
-//                .lt(UserInfo::getLoginTimes, 0);
-//        List<Object> objects = userInfoMapper.selectObjs(lambdaQuery);
-//        objects.forEach(System.out::println);
-
+        LambdaQueryWrapper<UserInfo> lambda = new QueryWrapper<UserInfo>().lambda();
+        LambdaQueryWrapper<UserInfo> queryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<UserInfo> lambdaQuery = Wrappers.<UserInfo>lambdaQuery();
+        lambdaQuery.like(UserInfo::getUserName, "te")
+                .lt(UserInfo::getLoginTimes, 0);
+        List<Object> objects = userInfoMapper.selectObjs(lambdaQuery);
+        objects.forEach(System.out::println);
+//
         Page<UserInfo> page = new Page<>(1, 10);
         Page<UserInfo> infoPage = userInfoMapper.selectPage(page, null);
         System.out.println(infoPage);
@@ -72,5 +68,6 @@ class VueFreestyleApplicationTests {
         System.out.println(page.getSize());
         System.out.println(page.getRecords());
         System.out.println(page.getTotal());
+
     }
 }

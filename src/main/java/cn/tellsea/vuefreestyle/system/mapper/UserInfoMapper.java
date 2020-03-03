@@ -4,7 +4,7 @@ import cn.tellsea.vuefreestyle.system.entity.UserInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * 用户表 Mapper 接口层
+ * 用户表 Mapper 接口
  *
  * @author: Tellsea
  * @date : 2020/3/2

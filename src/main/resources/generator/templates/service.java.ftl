@@ -4,8 +4,11 @@ import ${package.Entity}.${entity};
 import ${superServiceClassPackage};
 
 /**
- * @author ${author}
- */
+* ${table.comment!} Service接口
+*
+* @author ${author}
+* @date ${date}
+*/
 <#if kotlin>
 interface ${table.serviceName} : ${superServiceClass}<${entity}>
 <#else>

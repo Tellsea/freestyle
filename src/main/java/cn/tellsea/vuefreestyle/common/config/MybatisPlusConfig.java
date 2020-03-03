@@ -1,6 +1,7 @@
 package cn.tellsea.vuefreestyle.common.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @date : 2020/3/2
  */
 @Configuration
+@MapperScan("cn.tellsea.vuefreestyle.*.mapper")
 public class MybatisPlusConfig {
 
     /**

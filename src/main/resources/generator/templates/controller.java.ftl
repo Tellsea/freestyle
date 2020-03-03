@@ -1,8 +1,9 @@
 package ${package.Controller};
 
-
+<#if swagger2>
+import io.swagger.annotations.Api;
+</#if>
 import org.springframework.web.bind.annotation.RequestMapping;
-
 <#if restControllerStyle>
 import org.springframework.web.bind.annotation.RestController;
 <#else>
@@ -13,8 +14,14 @@ import ${superControllerClassPackage};
 </#if>
 
 /**
+ * ${table.comment!} 控制器
+ *
  * @author ${author}
+ * @date ${date}
  */
+<#if swagger2>
+@Api(tags = "${table.comment!}接口")
+</#if>
 <#if restControllerStyle>
 @RestController
 <#else>

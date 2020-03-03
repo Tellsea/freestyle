@@ -54,8 +54,12 @@ public class CodeGenerator {
         String projectPath = System.getProperty("user.dir");
         globalConfig.setOutputDir(projectPath + "/src/main/java");
         globalConfig.setAuthor(AUTHOR);
+        globalConfig.setServiceName("%sService");
         globalConfig.setOpen(false);
+        globalConfig.setSwagger2(true);
         globalConfig.setFileOverride(false);
+        globalConfig.setBaseColumnList(true);
+        globalConfig.setBaseResultMap(true);
         generator.setGlobalConfig(globalConfig);
 
         // 数据源配置
@@ -89,7 +93,7 @@ public class CodeGenerator {
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         strategy.setInclude(scanner("表名"));
-        strategy.setSuperEntityColumns("id");
+        // strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(false);
         strategy.setTablePrefix(packageConfig.getModuleName() + "_");
         generator.setStrategy(strategy);
