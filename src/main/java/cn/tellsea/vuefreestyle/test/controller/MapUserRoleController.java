@@ -1,5 +1,6 @@
 package cn.tellsea.vuefreestyle.test.controller;
 
+import cn.tellsea.vuefreestyle.common.annotation.ControllerLog;
 import cn.tellsea.vuefreestyle.test.entity.MapUserRole;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MapUserRoleController {
 
     @GetMapping("test")
+    @ControllerLog("test")
     public String test(MapUserRole mapUserRole) {
         return "hello";
     }
