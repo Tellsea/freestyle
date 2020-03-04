@@ -1,6 +1,7 @@
 package cn.tellsea.vuefreestyle.common.entity;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
  * @date 2020/3/3
  */
 @Data
+@Accessors(chain = true)
 public class ResponseResult {
 
     private int code;

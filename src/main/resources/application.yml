@@ -20,8 +20,21 @@ spring:
     testWhileIdle: true
     testOnBorrow: false
     testOnReturn: false
-#    filters: stat,wall,log4j
+    #filters: stat,wall,log4j
     logSlowSql: true
+
+  # redis
+  redis:
+    database: 0
+    host: 127.0.0.1
+    password: ''
+    port: 6379
+    timeout: 10000ms
+    lettuce:
+      pool:
+        max-idle: 8
+        max-wait: 2000ms
+        min-idle: 0
 
 # mybatis plus
 mybatis-plus:
@@ -33,5 +46,8 @@ mybatis-plus:
       logic-not-delete-value: 1
       logic-delete-value: 2
 
+
 vuefreestyle:
+  swagger:
+    enabled: true
 
