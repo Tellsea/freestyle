@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * 用户表 Service接口
 *
 * @author Tellsea
-* @date 2020-03-03
+* @date 2020-03-04
 */
 public interface UserInfoService extends IService<UserInfo> {
 

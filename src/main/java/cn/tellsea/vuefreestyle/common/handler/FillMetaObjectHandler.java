@@ -16,15 +16,22 @@ import java.time.LocalDateTime;
 @Slf4j
 @Component
 public class FillMetaObjectHandler implements MetaObjectHandler {
+
     @Override
     public void insertFill(MetaObject metaObject) {
-        log.info("FillMetaObjectHandler 开始自动插入新增 ...");
-        this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
+        // boolean hasSetter = metaObject.hasSetter("createTime");
+        // if (hasSetter) {
+            log.info("FillMetaObjectHandler 开始自动插入新增 ...");
+            this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
+        // }
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        log.info("FillMetaObjectHandler 开始自动插入更新 ...");
-        this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
+        Object val = getFieldValByName("updateTime", metaObject);
+        if (val == null) {
+            log.info("FillMetaObjectHandler 开始自动插入更新 ...");
+            this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
+        }
     }
 }

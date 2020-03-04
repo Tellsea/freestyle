@@ -63,7 +63,7 @@ public class CodeGenerator {
         globalConfig.setAuthor(AUTHOR);
         globalConfig.setServiceName("%sService");
         globalConfig.setOpen(false);
-        globalConfig.setSwagger2(true);
+        globalConfig.setSwagger2(false);
         globalConfig.setFileOverride(false);
         globalConfig.setBaseColumnList(false);
         globalConfig.setBaseResultMap(false);
@@ -100,7 +100,9 @@ public class CodeGenerator {
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         strategy.setInclude(scanner("表名"));
+        strategy.setLogicDeleteFieldName("status");
         // strategy.setSuperEntityColumns("id");
+        strategy.setEntityTableFieldAnnotationEnable(true);
         strategy.setControllerMappingHyphenStyle(false);
         // strategy.setTablePrefix(packageConfig.getModuleName() + "_");
         generator.setStrategy(strategy);

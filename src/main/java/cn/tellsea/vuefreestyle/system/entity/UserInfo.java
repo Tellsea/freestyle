@@ -1,11 +1,12 @@
 package cn.tellsea.vuefreestyle.system.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -14,56 +15,98 @@ import lombok.experimental.Accessors;
  * 用户表 实体类
  *
  * @author Tellsea
- * @date 2020-03-03
+ * @date 2020-03-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "UserInfo对象", description = "用户表")
+@TableName("user_info")
 public class UserInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "用户ID")
+    /**
+     * 用户ID
+     */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "用户名")
+    /**
+     * 用户名
+     */
+    @TableField("user_name")
     private String userName;
 
-    @ApiModelProperty(value = "账户，登录名，不可更改")
+    /**
+     * 账户，登录名，不可更改
+     */
+    @TableField("nick_name")
     private String nickName;
 
-    @ApiModelProperty(value = "密码")
+    /**
+     * 密码
+     */
+    @TableField("password")
     private String password;
 
-    @ApiModelProperty(value = "盐值")
+    /**
+     * 盐值
+     */
+    @TableField("salt")
     private String salt;
 
-    @ApiModelProperty(value = "头像")
+    /**
+     * 头像
+     */
+    @TableField("avatar")
     private String avatar;
 
-    @ApiModelProperty(value = "手机")
+    /**
+     * 手机
+     */
+    @TableField("phone")
     private String phone;
 
-    @ApiModelProperty(value = "性别 1男 2女")
+    /**
+     * 性别 1男 2女
+     */
+    @TableField("sex")
     private Integer sex;
 
-    @ApiModelProperty(value = "描述")
+    /**
+     * 描述
+     */
+    @TableField("description")
     private String description;
 
-    @ApiModelProperty(value = "创建人")
+    /**
+     * 创建人
+     */
+    @TableField("create_user")
     private Integer createUser;
 
-    @ApiModelProperty(value = "创建时间")
+    /**
+     * 创建时间
+     */
+    @TableField("create_time")
     private LocalDateTime createTime;
 
-    @ApiModelProperty(value = "登录次数")
+    /**
+     * 登录次数
+     */
+    @TableField("login_times")
     private Integer loginTimes;
 
-    @ApiModelProperty(value = "最后登录时间")
+    /**
+     * 最后登录时间
+     */
+    @TableField("last_login_time")
     private LocalDateTime lastLoginTime;
 
-    @ApiModelProperty(value = "状态 1 正常2 锁定 3 删除")
+    /**
+     * 状态(1正常，2删除)
+     */
+    @TableField("status")
+    @TableLogic
     private Boolean status;
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 * 用户表 Service接口实现类
 *
 * @author Tellsea
-* @date 2020-03-03
+* @date 2020-03-04
 */
 @Service
 public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements UserInfoService {
