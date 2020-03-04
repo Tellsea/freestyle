@@ -1,8 +1,13 @@
 package cn.tellsea.vuefreestyle.common.entity;
 
+import cn.tellsea.vuefreestyle.common.enums.BaseEnums;
+import cn.tellsea.vuefreestyle.common.enums.StatusEnums;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import org.springframework.http.HttpStatus;
+
+import java.io.Serializable;
 
 /**
  * 公共返回结果集
@@ -12,7 +17,9 @@ import org.springframework.http.HttpStatus;
  */
 @Data
 @Accessors(chain = true)
-public class ResponseResult {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ResponseResult implements Serializable {
 
     private int code;
 
@@ -20,21 +27,41 @@ public class ResponseResult {
 
     private Object data;
 
-    public ResponseResult(HttpStatus status) {
-        this.code = status.value();
-        this.message = null;
-        this.data = null;
+    public static ResponseResult success() {
+        return new ResponseResult().setCode(StatusEnums.OK.getCode())
+                .setMessage(StatusEnums.OK.getInfo());
     }
 
-    public ResponseResult(HttpStatus status, String message) {
-        this.code = status.value();
-        this.message = message;
-        this.data = null;
+    public static ResponseResult success(Object data) {
+        return new ResponseResult().setCode(StatusEnums.OK.getCode())
+                .setMessage(StatusEnums.OK.getInfo())
+                .setData(data);
     }
 
-    public ResponseResult(HttpStatus status, String message, Object data) {
-        this.code = status.value();
-        this.message = message;
-        this.data = data;
+    public static ResponseResult error() {
+        return new ResponseResult().setCode(StatusEnums.SERVER_ERROR.getCode())
+                .setMessage(StatusEnums.SERVER_ERROR.getInfo());
+    }
+
+    public static ResponseResult error(String message) {
+        return new ResponseResult().setCode(StatusEnums.SERVER_ERROR.getCode())
+                .setMessage(message);
+    }
+
+    public static ResponseResult error(Object data) {
+        return new ResponseResult().setCode(StatusEnums.SERVER_ERROR.getCode())
+                .setMessage(StatusEnums.SERVER_ERROR.getInfo())
+                .setData(data);
+    }
+
+    public static ResponseResult build(BaseEnums baseEnums) {
+        return new ResponseResult().setCode(baseEnums.getCode())
+                .setMessage(baseEnums.getInfo());
+    }
+
+    public static ResponseResult build(BaseEnums baseEnums, Object data) {
+        return new ResponseResult().setCode(baseEnums.getCode())
+                .setMessage(baseEnums.getInfo())
+                .setData(data);
     }
 }

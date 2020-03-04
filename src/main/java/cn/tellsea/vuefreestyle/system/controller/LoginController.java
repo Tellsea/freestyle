@@ -5,7 +5,9 @@ import cn.tellsea.vuefreestyle.common.entity.ResponseResult;
 import cn.tellsea.vuefreestyle.common.utils.RedisUtil;
 import cn.tellsea.vuefreestyle.system.entity.UserInfo;
 import cn.tellsea.vuefreestyle.system.service.UserInfoService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,28 +31,36 @@ public class LoginController {
     @Autowired
     private RedisUtil redisUtil;
 
-    @PostMapping("getToken")
-    public ResponseResult login(@RequestParam("userName") String userName,
-                                @RequestParam("password") String password) {
+    @ApiOperation("登录")
+    @PostMapping("login")
+    public ResponseResult login(@RequestParam(value = "userName") String userName,
+                                @RequestParam(value = "password") String password) {
         if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
-            return new ResponseResult(HttpStatus.UNAUTHORIZED, "用户名和密码不能为空");
+            return ResponseResult.error("用户名或者密码不能为空");
         }
-        UserInfo userInfo = new UserInfo();
-        String token = JwtUtil.sign(userName, password);
-        redisUtil.set(token, userInfo, 60);
-        return new ResponseResult(HttpStatus.OK, "成功", token);
+        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_name", userName)
+                .eq("password", password);
+        UserInfo userInfo = userInfoService.getBaseMapper().selectOne(queryWrapper);
+        if (userInfo == null) {
+            return ResponseResult.error("系统查询不到该用户");
+        } else {
+            String token = JwtUtil.sign(userName, password);
+            redisUtil.set(token, userInfo, 60 * 60);
+            return ResponseResult.success(token);
+        }
     }
 
     @GetMapping("admin")
     @RequiresRoles("admin")
     public ResponseResult admin() {
-        return new ResponseResult(HttpStatus.OK, "成功");
+        return ResponseResult.success();
     }
 
-    @GetMapping(path = "/401")
+    @GetMapping("401")
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseResult unauthorized(HttpServletRequest request) {
         String data = (String) request.getAttribute("msg");
-        return new ResponseResult(HttpStatus.UNAUTHORIZED, "认证失败");
+        return ResponseResult.error(data);
     }
 }

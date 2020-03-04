@@ -36,7 +36,7 @@ public class SwaggerConfig {
     public Docket systemApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("系统模块接口")
-                .apiInfo(getApiInfo("VueFreestyle System Api", "1.0"))
+                .apiInfo(getApiInfo("VueFreestyle 系统模块", "1.0"))
                 .globalOperationParameters(getGlobalparam())
                 .useDefaultResponseMessages(true)
                 .forCodeGeneration(false)
@@ -50,11 +50,11 @@ public class SwaggerConfig {
     public Docket testApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("测试模块接口")
-                .apiInfo(getApiInfo("VueFreestyle Test Api", "1.0"))
-                .globalOperationParameters(getGlobalparam())
+                .apiInfo(getApiInfo("VueFreestyle 测试模块", "1.0"))
+                //.globalOperationParameters(getGlobalparam())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("cn.tellsea.vuefreestyle.test.controller"))
-                .paths(PathSelectors.regex("/test/*"))
+                .paths(PathSelectors.any())
                 .build();
     }
 
@@ -64,7 +64,7 @@ public class SwaggerConfig {
                 .description("用户登陆令牌")
                 .parameterType("header")
                 .modelRef(new ModelRef("String"))
-                .required(true)
+                .required(false)
                 .build());
         return parameters;
     }

@@ -4,6 +4,7 @@ import cn.tellsea.vuefreestyle.common.utils.RedisUtil;
 import cn.tellsea.vuefreestyle.system.entity.UserInfo;
 import cn.tellsea.vuefreestyle.system.service.UserInfoService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * shiro 验证域
@@ -48,6 +50,26 @@ public class ShiroRealm extends AuthorizingRealm {
     }
 
     /**
+     * 授权
+     *
+     * @param principal
+     * @return
+     */
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        String token = (String) principal.getPrimaryPrincipal();
+        String userName = JwtUtil.getUsername(token);
+        // 设置角色集合
+        Set<String> roleSet = userInfoService.getRoleByUserName(userName);
+        info.addRoles(roleSet);
+        // 设置权限集合
+        Set<String> permissionSet = userInfoService.getPermissonByUserName(userName);
+        info.setStringPermissions(permissionSet);
+        return info;
+    }
+
+    /**
      * 认证.登录
      *
      * @param auth
@@ -57,52 +79,18 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken auth) throws AuthenticationException {
         String token = (String) auth.getCredentials();
-        // 解密获得username
-        String username = JwtUtil.getUsername(token);
-        if (username == null) {
+        // 解密获得userName
+        String userName = JwtUtil.getUsername(token);
+        if (StringUtils.isEmpty(userName)) {
             throw new AuthenticationException("令牌无效");
         }
         UserInfo userBean = (UserInfo) redisUtil.get(token);
         if (userBean == null) {
             throw new AuthenticationException("令牌已过期");
         } else {
-            redisUtil.expire(token, 60);
-            return new SimpleAuthenticationInfo(token, token, "MyRealm");
+            // 延长token一小时
+            redisUtil.expire(token, 60 * 60);
+            return new SimpleAuthenticationInfo(token, token, "ShiroRealm");
         }
-    }
-
-    /**
-     * 授权
-     *
-     * @param principal
-     * @return
-     */
-    @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
-        String token = (String) principal.getPrimaryPrincipal();
-        String username = JwtUtil.getUsername(token);
-        List<String> permissions = new ArrayList<>();
-        List<String> rolesName = new ArrayList<>();
-        /*UserInfo user = userInfoService.findUserByUserName(username);
-        List<Role> roles = user.getRoles();
-        if (roles.size() > 0) {
-            for (Role role : roles) {
-                rolesName.add(role.getRname());
-                List<Module> modules = role.getModules();
-                if (modules.size() > 0) {
-                    for (Module module : modules) {
-                        permissions.add(module.getMname());
-                    }
-                }
-            }
-        }*/
-        rolesName.add("admin");
-        rolesName.add("system");
-        permissions.add("system:user:add");
-        permissions.add("system:user:select");
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        info.addRoles(rolesName);
-        info.addStringPermissions(permissions);
-        return info;
     }
 }
