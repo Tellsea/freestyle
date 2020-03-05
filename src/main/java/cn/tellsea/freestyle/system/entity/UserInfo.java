@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -89,7 +91,7 @@ public class UserInfo implements Serializable {
      * 创建时间
      */
     @TableField("create_time")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 登录次数
@@ -101,7 +103,7 @@ public class UserInfo implements Serializable {
      * 最后登录时间
      */
     @TableField("last_login_time")
-    private LocalDateTime lastLoginTime;
+    private Date lastLoginTime;
 
     /**
      * 状态(1正常，2删除)

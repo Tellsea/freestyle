@@ -17,8 +17,6 @@ import java.io.Serializable;
  */
 @Data
 @Accessors(chain = true)
-@AllArgsConstructor
-@NoArgsConstructor
 public class ResponseResult implements Serializable {
 
     private int code;
@@ -38,14 +36,28 @@ public class ResponseResult implements Serializable {
                 .setData(data);
     }
 
+    public static ResponseResult success(String message, Object data) {
+        return new ResponseResult().setCode(StatusEnums.OK.getCode())
+                .setMessage(message)
+                .setData(data);
+    }
+
+    public static ResponseResult success(BaseEnums baseEnums) {
+        return new ResponseResult().setCode(baseEnums.getCode())
+                .setMessage(baseEnums.getInfo());
+    }
+
+    public static ResponseResult success(BaseEnums baseEnums, Object data) {
+        return new ResponseResult().setCode(baseEnums.getCode())
+                .setMessage(baseEnums.getInfo())
+                .setData(data);
+    }
+
+    // 失败
+
     public static ResponseResult error() {
         return new ResponseResult().setCode(StatusEnums.SERVER_ERROR.getCode())
                 .setMessage(StatusEnums.SERVER_ERROR.getInfo());
-    }
-
-    public static ResponseResult error(String message) {
-        return new ResponseResult().setCode(StatusEnums.SERVER_ERROR.getCode())
-                .setMessage(message);
     }
 
     public static ResponseResult error(Object data) {
@@ -54,12 +66,18 @@ public class ResponseResult implements Serializable {
                 .setData(data);
     }
 
-    public static ResponseResult build(BaseEnums baseEnums) {
+    public static ResponseResult error(String message, Object data) {
+        return new ResponseResult().setCode(StatusEnums.SERVER_ERROR.getCode())
+                .setMessage(message)
+                .setData(data);
+    }
+
+    public static ResponseResult error(BaseEnums baseEnums) {
         return new ResponseResult().setCode(baseEnums.getCode())
                 .setMessage(baseEnums.getInfo());
     }
 
-    public static ResponseResult build(BaseEnums baseEnums, Object data) {
+    public static ResponseResult error(BaseEnums baseEnums, Object data) {
         return new ResponseResult().setCode(baseEnums.getCode())
                 .setMessage(baseEnums.getInfo())
                 .setData(data);

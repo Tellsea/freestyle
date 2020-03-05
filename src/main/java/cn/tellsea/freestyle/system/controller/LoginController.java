@@ -2,6 +2,7 @@ package cn.tellsea.freestyle.system.controller;
 
 import cn.tellsea.freestyle.common.authentication.JwtUtil;
 import cn.tellsea.freestyle.common.entity.ResponseResult;
+import cn.tellsea.freestyle.common.exception.FreestyleException;
 import cn.tellsea.freestyle.common.properties.FreestyleProperties;
 import cn.tellsea.freestyle.common.utils.RedisUtil;
 import cn.tellsea.freestyle.system.entity.UserInfo;
@@ -62,7 +63,12 @@ public class LoginController {
 
     @GetMapping("admin")
     @RequiresRoles("admin")
-    public ResponseResult admin() {
+    public ResponseResult admin() throws FreestyleException {
+        try {
+            System.out.println(1 / 0);
+        } catch (Exception e) {
+            throw new FreestyleException("测试自定义异常");
+        }
         return ResponseResult.success();
     }
 
