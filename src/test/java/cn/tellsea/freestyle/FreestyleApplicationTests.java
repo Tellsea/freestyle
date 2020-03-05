@@ -1,12 +1,17 @@
 package cn.tellsea.freestyle;
 
+import cn.tellsea.freestyle.system.mapper.UserInfoMapper;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 @MapperScan("cn.tellsea.freestyle.*.mapper")
 class FreestyleApplicationTests {
+
+    @Autowired
+    private UserInfoMapper userInfoMapper;
 
     @Test
     void contextLoads() {

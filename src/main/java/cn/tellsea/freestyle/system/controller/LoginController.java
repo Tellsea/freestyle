@@ -6,7 +6,7 @@ import cn.tellsea.freestyle.common.properties.FreestyleProperties;
 import cn.tellsea.freestyle.common.utils.RedisUtil;
 import cn.tellsea.freestyle.system.entity.UserInfo;
 import cn.tellsea.freestyle.system.service.UserInfoService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 登录 控制器
@@ -41,16 +43,20 @@ public class LoginController {
         if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
             return ResponseResult.error("用户名或者密码不能为空");
         }
-        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_name", userName)
-                .eq("password", password);
-        UserInfo userInfo = userInfoService.getBaseMapper().selectOne(queryWrapper);
+        UserInfo userInfo = userInfoService.getBaseMapper().selectOne(new LambdaQueryWrapper<UserInfo>().eq(UserInfo::getUserName, userName));
         if (userInfo == null) {
             return ResponseResult.error("系统查询不到该用户");
         } else {
             String token = JwtUtil.sign(userName, password);
             redisUtil.set(token, userInfo, properties.getShiro().getJwtTokenTimeOut());
-            return ResponseResult.success(token);
+
+            // 返回前端所需数据
+            Map<String, Object> map = new HashMap<>(16);
+            map.put("token", token);
+            map.put("userInfo", userInfo);
+            map.put("roleList", userInfoService.getRoleByUserName(userName));
+            map.put("permissionList", userInfoService.getPermissonByUserName(userName));
+            return ResponseResult.success(map);
         }
     }
 

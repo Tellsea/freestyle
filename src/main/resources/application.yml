@@ -40,11 +40,13 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapper-locations: classpath*:/mapper/*.xml
+  mapper-locations: classpath:mapper/*/*.xml
+  type-aliases-package: cn.tellsea.freestyle.system.entity
   global-config:
     db-config:
       logic-not-delete-value: 1
       logic-delete-value: 2
+    banner: false
 
 # freestyle
 freestyle:

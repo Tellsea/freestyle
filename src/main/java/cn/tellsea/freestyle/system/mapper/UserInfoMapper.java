@@ -1,6 +1,7 @@
 package cn.tellsea.freestyle.system.mapper;
 
 import cn.tellsea.freestyle.system.entity.UserInfo;
+import cn.tellsea.freestyle.system.vo.UserInfoVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.Set;
