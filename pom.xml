@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.tellsea</groupId>
-    <artifactId>vue-freestyle</artifactId>
+    <artifactId>freestyle</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>vue-freestyle</name>
+    <name>freestyle</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

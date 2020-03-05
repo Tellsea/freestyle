@@ -47,7 +47,7 @@ mybatis-plus:
       logic-delete-value: 2
 
 
-vuefreestyle:
+freestyle:
   swagger:
     enabled: true
 
