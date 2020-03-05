@@ -46,8 +46,16 @@ mybatis-plus:
       logic-not-delete-value: 1
       logic-delete-value: 2
 
-
+# freestyle
 freestyle:
   swagger:
     enabled: true
+    version: 1.0
+    author: tellsea
+    url: https://github.com/tellsea
+    email: 3210054449@qq.com
+    description: 更多项目：https://github.com/tellsea
+    termsOfServiceUrl: https://www.apache.org/licenses/LICENSE-2.0.html
+  shiro:
+    jwtTokenTimeOut: 3600
 

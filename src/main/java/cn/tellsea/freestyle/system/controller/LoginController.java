@@ -2,6 +2,7 @@ package cn.tellsea.freestyle.system.controller;
 
 import cn.tellsea.freestyle.common.authentication.JwtUtil;
 import cn.tellsea.freestyle.common.entity.ResponseResult;
+import cn.tellsea.freestyle.common.properties.FreestyleProperties;
 import cn.tellsea.freestyle.common.utils.RedisUtil;
 import cn.tellsea.freestyle.system.entity.UserInfo;
 import cn.tellsea.freestyle.system.service.UserInfoService;
@@ -30,6 +31,8 @@ public class LoginController {
     private UserInfoService userInfoService;
     @Autowired
     private RedisUtil redisUtil;
+    @Autowired
+    private FreestyleProperties properties;
 
     @ApiOperation("登录")
     @PostMapping("login")
@@ -46,7 +49,7 @@ public class LoginController {
             return ResponseResult.error("系统查询不到该用户");
         } else {
             String token = JwtUtil.sign(userName, password);
-            redisUtil.set(token, userInfo, 60 * 60);
+            redisUtil.set(token, userInfo, properties.getShiro().getJwtTokenTimeOut());
             return ResponseResult.success(token);
         }
     }

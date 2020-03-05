@@ -15,5 +15,9 @@ import org.springframework.stereotype.Component;
 @Component
 @Configuration
 @ConfigurationProperties(prefix = "freestyle")
-public class VueFreestyleProperties {
+public class FreestyleProperties {
+
+    private SwaggerProperties swagger;
+
+    private ShiroProperties shiro;
 }

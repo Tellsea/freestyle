@@ -1,5 +1,7 @@
 package cn.tellsea.freestyle.common.config;
 
+import cn.tellsea.freestyle.common.properties.FreestyleProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -28,16 +30,16 @@ import java.util.List;
 @EnableSwagger2
 public class SwaggerConfig {
 
-//    @Value(value = "${freestyle.swagger.enabled}")
-//    Boolean swaggerEnabled;
+    @Autowired
+    private FreestyleProperties properties;
 
     @Bean
     public Docket systemApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("系统模块接口")
-                .apiInfo(getApiInfo("VueFreestyle 系统模块", "1.0"))
+                .apiInfo(getApiInfo("Freestyle 系统模块"))
                 .globalOperationParameters(getGlobalparam())
-                //.enable(swaggerEnabled)
+                .enable(properties.getSwagger().isEnabled())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("cn.tellsea.freestyle.system.controller"))
                 .paths(PathSelectors.any())
@@ -48,9 +50,9 @@ public class SwaggerConfig {
     public Docket testApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("测试模块接口")
-                .apiInfo(getApiInfo("VueFreestyle 测试模块", "1.0"))
+                .apiInfo(getApiInfo("Freestyle 测试模块"))
                 .globalOperationParameters(getGlobalparam())
-                //.enable(swaggerEnabled)
+                .enable(properties.getSwagger().isEnabled())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("cn.tellsea.freestyle.test.controller"))
                 .paths(PathSelectors.any())
@@ -68,13 +70,13 @@ public class SwaggerConfig {
         return parameters;
     }
 
-    private ApiInfo getApiInfo(String title, String version) {
+    private ApiInfo getApiInfo(String title) {
         return new ApiInfoBuilder()
                 .title(title)
-                .description("更多请关注: https://github.com/tellsea")
-                .termsOfServiceUrl("https://github.com/tellsea")
-                .contact(new Contact("Tellsea", "https://blog.csdn.net/qq_38762237", "3210054449@qq.com"))
-                .version(version)
+                .description(properties.getSwagger().getDescription())
+                .termsOfServiceUrl(properties.getSwagger().getTermsOfServiceUrl())
+                .contact(new Contact(properties.getSwagger().getAuthor(), properties.getSwagger().getUrl(), properties.getSwagger().getEmail()))
+                .version(properties.getSwagger().getVersion())
                 .build();
     }
 }
