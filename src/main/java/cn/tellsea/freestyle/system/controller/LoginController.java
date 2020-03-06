@@ -10,14 +10,12 @@ import cn.tellsea.freestyle.system.service.UserInfoService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -32,7 +30,7 @@ import java.util.Map;
  * @date 2020-03-04
  */
 @Api(tags = "登录接口")
-//@Validated
+@Validated
 @RestController
 public class LoginController {
 
@@ -47,12 +45,16 @@ public class LoginController {
     @PostMapping("login")
     public ResponseResult login(@NotNull(message = "用户名不能为空") String userName,
                                 @NotNull(message = "密码不能为空") String password) {
+        if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
+            return ResponseResult.error("用户名或者密码不能为空");
+        }
         UserInfo userInfo = userInfoService.getBaseMapper().selectOne(new LambdaQueryWrapper<UserInfo>().eq(UserInfo::getUserName, userName));
         if (userInfo == null) {
             return ResponseResult.error("系统查询不到该用户");
         } else {
             String token = JwtUtil.sign(userName, password);
             redisUtil.set(token, userInfo, properties.getShiro().getJwtTokenTimeOut());
+
             // 返回前端所需数据
             Map<String, Object> map = new HashMap<>(16);
             map.put("token", token);
