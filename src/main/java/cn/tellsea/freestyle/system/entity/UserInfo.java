@@ -14,6 +14,8 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * 用户表 实体类
  *
@@ -49,6 +51,7 @@ public class UserInfo implements Serializable {
     /**
      * 密码
      */
+    @NotNull(message = "密码不能为空")
     @Length(min = 6, message = "密码最低需要6位")
     @TableField("password")
     private String password;

@@ -1,6 +1,7 @@
 package cn.tellsea.freestyle;
 
 import cn.tellsea.freestyle.system.mapper.UserInfoMapper;
+import com.alibaba.druid.filter.config.ConfigTools;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,20 @@ class FreestyleApplicationTests {
 //        System.out.println(page.getRecords());
 //        System.out.println(page.getTotal());
 
+    }
+
+    @Test
+    public void druidEncrypt() throws Exception {
+        String password = "Root123!@#";
+        System.out.println("明文: " + password);
+        String[] keyPair = ConfigTools.genKeyPair(512);
+        String privateKey = keyPair[0];
+        String publicKey = keyPair[1];
+        password = ConfigTools.encrypt(privateKey, password);
+        System.out.println("私钥:" + privateKey);
+        System.out.println("公钥:" + publicKey);
+        System.out.println("密文:" + password);
+        String decryptPassword = ConfigTools.decrypt(publicKey, password);
+        System.out.println("解密:" + decryptPassword);
     }
 }

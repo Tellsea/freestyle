@@ -47,7 +47,7 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean factory(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
         // 添加自己的过滤器并且取名为jwt
-        Map<String, Filter> filterMap = new HashMap<>();
+        Map<String, Filter> filterMap = new HashMap<>(16);
         filterMap.put("jwt", new JwtFilter());
         factoryBean.setFilters(filterMap);
         factoryBean.setSecurityManager(securityManager);
@@ -57,7 +57,7 @@ public class ShiroConfig {
          * 自定义url规则
          * http://shiro.apache.org/web.html#urls-
          */
-        Map<String, String> filterRuleMap = new HashMap<>();
+        Map<String, String> filterRuleMap = new HashMap<>(16);
         // 所有请求通过我们自己的JWT Filter
         filterRuleMap.put("/**", "jwt");
         // 访问401和404页面不通过我们的Filter
