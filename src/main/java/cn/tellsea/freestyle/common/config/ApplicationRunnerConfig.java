@@ -17,7 +17,7 @@ import redis.clients.jedis.Jedis;
  */
 @Slf4j
 @Component
-public class ApplicationRunnerImpl implements ApplicationRunner {
+public class ApplicationRunnerConfig implements ApplicationRunner {
 
     @Value("${spring.redis.host}")
     private String redisHost;

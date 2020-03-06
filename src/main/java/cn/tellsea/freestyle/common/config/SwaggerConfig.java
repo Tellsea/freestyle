@@ -38,7 +38,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("系统模块接口")
                 .apiInfo(getApiInfo("Freestyle 系统模块"))
-                .globalOperationParameters(getGlobalparam())
+                .globalOperationParameters(getGlobalParam())
                 .enable(properties.getSwagger().isEnabled())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("cn.tellsea.freestyle.system.controller"))
@@ -51,7 +51,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("测试模块接口")
                 .apiInfo(getApiInfo("Freestyle 测试模块"))
-                .globalOperationParameters(getGlobalparam())
+                .globalOperationParameters(getGlobalParam())
                 .enable(properties.getSwagger().isEnabled())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("cn.tellsea.freestyle.test.controller"))
@@ -59,7 +59,7 @@ public class SwaggerConfig {
                 .build();
     }
 
-    private List<Parameter> getGlobalparam() {
+    private List<Parameter> getGlobalParam() {
         List<Parameter> parameters = new ArrayList<>();
         parameters.add(new ParameterBuilder().name("token")
                 .description("用户登陆令牌")

@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : 47.107.171.232
  Source Server Type    : MySQL
- Source Server Version : 50713
- Source Host           : localhost:3306
+ Source Server Version : 50726
+ Source Host           : 47.107.171.232:3306
  Source Schema         : vue_freestyle
 
  Target Server Type    : MySQL
- Target Server Version : 50713
+ Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 02/03/2020 17:30:35
+ Date: 06/03/2020 14:42:38
 */
 
 SET NAMES utf8mb4;
@@ -193,8 +193,8 @@ CREATE TABLE `map_user_role`  (
 -- Records of map_user_role
 -- ----------------------------
 INSERT INTO `map_user_role` VALUES (1, 1, 1);
-INSERT INTO `map_user_role` VALUES (2, 2, 2);
-INSERT INTO `map_user_role` VALUES (3, 3, 3);
+INSERT INTO `map_user_role` VALUES (2, 1, 2);
+INSERT INTO `map_user_role` VALUES (3, 1, 3);
 
 -- ----------------------------
 -- Table structure for resource_info
@@ -275,15 +275,87 @@ CREATE TABLE `system_log`  (
   `method` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作方法',
   `params` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作参数',
   `ip` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'IP地址',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '操作时间',
   `location` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作地点',
+  `device` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作设备',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '操作时间',
+  `status` int(2) NULL DEFAULT NULL COMMENT '状态(1正常，2删除)',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 72 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of system_log
 -- ----------------------------
-INSERT INTO `system_log` VALUES (1, 1, '新增用户', 3, 'saveUserInfo', 'UserInfo[\"userName\": \"tellsea\",\"password\":\"123456\"]', '127.0.0.1', '2019-12-21 22:25:57', '操作地点');
+INSERT INTO `system_log` VALUES (1, 0, 'test', 5, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '0:0:0:0:0:0:0:1', '0|0|0|??IP|??IP', 'CHROME--WINDOWS_10', NULL, NULL);
+INSERT INTO `system_log` VALUES (2, 0, 'test2', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test2()', '{}', '0:0:0:0:0:0:0:1', '0|0|0|??IP|??IP', 'CHROME--WINDOWS_10', NULL, NULL);
+INSERT INTO `system_log` VALUES (3, 0, 'test', 6, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '0:0:0:0:0:0:0:1', '0|0|0|??IP|??IP', 'CHROME--WINDOWS_10', NULL, NULL);
+INSERT INTO `system_log` VALUES (4, 0, 'test', 10, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '0:0:0:0:0:0:0:1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 14:28:43', NULL);
+INSERT INTO `system_log` VALUES (5, 0, 'test', 4, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:00:16', NULL);
+INSERT INTO `system_log` VALUES (6, 0, 'test', 7, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:02:49', NULL);
+INSERT INTO `system_log` VALUES (7, 0, 'test', 4, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:23', NULL);
+INSERT INTO `system_log` VALUES (8, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:33', NULL);
+INSERT INTO `system_log` VALUES (9, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:35', NULL);
+INSERT INTO `system_log` VALUES (10, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:36', NULL);
+INSERT INTO `system_log` VALUES (11, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:36', NULL);
+INSERT INTO `system_log` VALUES (12, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:36', NULL);
+INSERT INTO `system_log` VALUES (13, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:37', NULL);
+INSERT INTO `system_log` VALUES (14, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:37', NULL);
+INSERT INTO `system_log` VALUES (15, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:37', NULL);
+INSERT INTO `system_log` VALUES (16, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:38', NULL);
+INSERT INTO `system_log` VALUES (17, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:39', NULL);
+INSERT INTO `system_log` VALUES (18, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:39', NULL);
+INSERT INTO `system_log` VALUES (19, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:40', NULL);
+INSERT INTO `system_log` VALUES (20, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:40', NULL);
+INSERT INTO `system_log` VALUES (21, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:41', NULL);
+INSERT INTO `system_log` VALUES (22, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:42', NULL);
+INSERT INTO `system_log` VALUES (23, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:42', NULL);
+INSERT INTO `system_log` VALUES (24, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:42', NULL);
+INSERT INTO `system_log` VALUES (25, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:42', NULL);
+INSERT INTO `system_log` VALUES (26, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:43', NULL);
+INSERT INTO `system_log` VALUES (27, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:43', NULL);
+INSERT INTO `system_log` VALUES (28, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:44', NULL);
+INSERT INTO `system_log` VALUES (29, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:44', NULL);
+INSERT INTO `system_log` VALUES (30, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:44', NULL);
+INSERT INTO `system_log` VALUES (31, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:44', NULL);
+INSERT INTO `system_log` VALUES (32, 0, 'test', 1, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:44', NULL);
+INSERT INTO `system_log` VALUES (33, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:45', NULL);
+INSERT INTO `system_log` VALUES (34, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:45', NULL);
+INSERT INTO `system_log` VALUES (35, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:46', NULL);
+INSERT INTO `system_log` VALUES (36, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:46', NULL);
+INSERT INTO `system_log` VALUES (37, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:47', NULL);
+INSERT INTO `system_log` VALUES (38, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:47', NULL);
+INSERT INTO `system_log` VALUES (39, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:48', NULL);
+INSERT INTO `system_log` VALUES (40, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:48', NULL);
+INSERT INTO `system_log` VALUES (41, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:13:49', NULL);
+INSERT INTO `system_log` VALUES (42, 0, 'test', 5, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:16:52', NULL);
+INSERT INTO `system_log` VALUES (43, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:16:57', NULL);
+INSERT INTO `system_log` VALUES (44, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:16:58', NULL);
+INSERT INTO `system_log` VALUES (45, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:16:58', NULL);
+INSERT INTO `system_log` VALUES (46, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:16:59', NULL);
+INSERT INTO `system_log` VALUES (47, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:16:59', NULL);
+INSERT INTO `system_log` VALUES (48, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:00', NULL);
+INSERT INTO `system_log` VALUES (49, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:00', NULL);
+INSERT INTO `system_log` VALUES (50, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:00', NULL);
+INSERT INTO `system_log` VALUES (51, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:01', NULL);
+INSERT INTO `system_log` VALUES (52, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:02', NULL);
+INSERT INTO `system_log` VALUES (53, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:02', NULL);
+INSERT INTO `system_log` VALUES (54, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:03', NULL);
+INSERT INTO `system_log` VALUES (55, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:03', NULL);
+INSERT INTO `system_log` VALUES (56, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:04', NULL);
+INSERT INTO `system_log` VALUES (57, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:04', NULL);
+INSERT INTO `system_log` VALUES (58, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:05', NULL);
+INSERT INTO `system_log` VALUES (59, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:05', NULL);
+INSERT INTO `system_log` VALUES (60, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:06', NULL);
+INSERT INTO `system_log` VALUES (61, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:06', NULL);
+INSERT INTO `system_log` VALUES (62, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:07', NULL);
+INSERT INTO `system_log` VALUES (63, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:07', NULL);
+INSERT INTO `system_log` VALUES (64, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:08', NULL);
+INSERT INTO `system_log` VALUES (65, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:08', NULL);
+INSERT INTO `system_log` VALUES (66, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:08', NULL);
+INSERT INTO `system_log` VALUES (67, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:09', NULL);
+INSERT INTO `system_log` VALUES (68, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:09', NULL);
+INSERT INTO `system_log` VALUES (69, 0, 'test', 0, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:17:10', NULL);
+INSERT INTO `system_log` VALUES (70, 0, 'test', 4, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:19:54', NULL);
+INSERT INTO `system_log` VALUES (71, 0, 'test', 6, 'cn.tellsea.vuefreestyle.system.controller.SystemLogController.test()', '{}', '127.0.0.1', '0|0|0|??IP|??IP', 'CHROME -- WINDOWS_10', '2020-03-03 15:22:04', NULL);
 
 -- ----------------------------
 -- Table structure for user_info
@@ -311,7 +383,7 @@ CREATE TABLE `user_info`  (
 -- Records of user_info
 -- ----------------------------
 INSERT INTO `user_info` VALUES (1, 'Tellsea', '超级管理员', 'a994fef0ddad5f9eed20804e7b18f559', 'VKqvum8YW0xNaTDFbrcijhTG6wUP5xAZ', 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2562372298,495845374&fm=26&gp=0.jpg', '18386474459', 0, 'I am Iron Man', 1, '2019-06-21 16:16:30', 12, '2019-12-20 10:15:58', 1);
-INSERT INTO `user_info` VALUES (2, 'tellsea', '系统管理员', '44eb196feb810ee770047cc34da66133', 'V1D9h266hLYqYfF5DnZCjlJKyG3Gx36c', 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3041599764,2432042915&fm=26&gp=0.jpg', '15836541252', 1, '我不想打字', 1, '2019-12-24 17:07:19', 0, NULL, 1);
+INSERT INTO `user_info` VALUES (2, 'system', '系统管理员', '44eb196feb810ee770047cc34da66133', 'V1D9h266hLYqYfF5DnZCjlJKyG3Gx36c', 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3041599764,2432042915&fm=26&gp=0.jpg', '15836541252', 1, '我不想打字', 1, '2019-12-24 17:07:19', 0, NULL, 1);
 INSERT INTO `user_info` VALUES (3, 'monitor', '系统监控员', '221605ef8256bb0cfbbfa5fb7688eaf1', '2HI9EdHJjSYsfyqSdbWlXZRxJNXvFnrE', 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=584948523,1006436504&fm=26&gp=0.jpg', '15356521441', 2, '中二病晚期', 1, '2019-12-24 17:17:17', 0, NULL, 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

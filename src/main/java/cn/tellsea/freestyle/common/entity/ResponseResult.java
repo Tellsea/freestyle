@@ -36,10 +36,9 @@ public class ResponseResult implements Serializable {
                 .setData(data);
     }
 
-    public static ResponseResult success(String message, Object data) {
+    public static ResponseResult successMsg(String message) {
         return new ResponseResult().setCode(StatusEnums.OK.getCode())
-                .setMessage(message)
-                .setData(data);
+                .setMessage(message);
     }
 
     public static ResponseResult success(BaseEnums baseEnums) {
@@ -66,10 +65,9 @@ public class ResponseResult implements Serializable {
                 .setData(data);
     }
 
-    public static ResponseResult error(String message, Object data) {
+    public static ResponseResult errorMsg(String message) {
         return new ResponseResult().setCode(StatusEnums.SERVER_ERROR.getCode())
-                .setMessage(message)
-                .setData(data);
+                .setMessage(message);
     }
 
     public static ResponseResult error(BaseEnums baseEnums) {

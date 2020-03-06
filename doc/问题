@@ -1,3 +1,7 @@
 1. swagger注册模块怎么提出去动态注入bean
 
-2. 项目启动检测redis抛出异常，全局异常捕获不到
+2. 项目启动检测redis抛出异常，全局异常捕获不到(已解决)
+
+
+网页链接：
+Spring Boot 参数校验：https://www.cnblogs.com/cjsblog/p/8946768.html
