@@ -43,14 +43,11 @@ public class LoginController {
 
     @ApiOperation("登录")
     @PostMapping("login")
-    public ResponseResult login(String userName,
-                                String password) {
-        if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
-            return ResponseResult.error("用户名或者密码不能为空");
-        }
+    public ResponseResult login(@NotNull(message = "用户名不能为空") @RequestParam("userName") String userName,
+                                @NotNull(message = "密码不能为空") @RequestParam("password") String password) {
         UserInfo userInfo = userInfoService.getBaseMapper().selectOne(new LambdaQueryWrapper<UserInfo>().eq(UserInfo::getUserName, userName));
         if (userInfo == null) {
-            return ResponseResult.error("系统查询不到该用户");
+            return ResponseResult.errorMsg("系统查询不到该用户");
         } else {
             String token = JwtUtil.sign(userName, password);
             redisUtil.set(token, userInfo, properties.getShiro().getJwtTokenTimeOut());

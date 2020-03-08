@@ -5,12 +5,16 @@ import cn.tellsea.freestyle.common.enums.StatusEnums;
 import cn.tellsea.freestyle.common.exception.FreestyleException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.authz.UnauthorizedException;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authz.UnauthenticatedException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -36,6 +40,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseResult handleException(Exception e) {
         log.error("Exception：{}", e);
+        e.printStackTrace();
         return ResponseResult.error(StatusEnums.SERVER_ERROR);
     }
 
@@ -55,7 +60,7 @@ public class GlobalExceptionHandler {
             message.append(error.getField()).append(error.getDefaultMessage()).append(",");
         }
         message = new StringBuilder(message.substring(0, message.length() - 1));
-        log.error("BindException：{}", message);
+        log.error("BindException：{}", message.toString());
         return ResponseResult.errorMsg(message.toString());
     }
 
@@ -70,13 +75,45 @@ public class GlobalExceptionHandler {
             message.append(pathArr[1]).append(violation.getMessage()).append(",");
         }
         message = new StringBuilder(message.substring(0, message.length() - 1));
-        log.error("ConstraintViolationException：{}", message);
+        log.error("ConstraintViolationException：{}", message.toString());
         return ResponseResult.errorMsg(message.toString());
     }
 
-    @ExceptionHandler(value = UnauthorizedException.class)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseResult handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        StringBuilder message = new StringBuilder();
+        BindingResult bindingResult = e.getBindingResult();
+        for (int i = 0; i < bindingResult.getFieldErrors().size(); i++) {
+            if (i > 0) {
+                message.append(",");
+            }
+            FieldError fieldError = bindingResult.getFieldErrors().get(i);
+            message.append(fieldError.getField()).append(" :").append(fieldError.getDefaultMessage());
+        }
+        log.error("MethodArgumentNotValidException：{}", message.toString());
+        return ResponseResult.errorMsg(message.toString());
+    }
+
+    @ExceptionHandler(value = MissingServletRequestParameterException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseResult handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
+        String message = "请求参数错误：{" + e.getParameterType() + ":" + e.getParameterName() + "}";
+        log.error("MissingServletRequestParameterException：{}", message);
+        return ResponseResult.errorMsg(message);
+    }
+
+    @ExceptionHandler(value = AuthenticationException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public void handleUnauthorizedException(Exception e) {
-        log.error("UnauthorizedException：{}", e.getMessage());
+    public ResponseResult handleAuthenticationException(AuthenticationException e) {
+        log.error("AuthenticationException：{}", e.getMessage());
+        return ResponseResult.errorMsg(e.getMessage());
+    }
+
+    @ExceptionHandler(value = UnauthenticatedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseResult handleUnauthenticatedException(UnauthenticatedException e) {
+        log.error("UnauthenticatedException：{}", "您还没有登录呦！");
+        return ResponseResult.errorMsg("您还没有登录呦！");
     }
 }

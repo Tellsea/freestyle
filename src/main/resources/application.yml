@@ -39,10 +39,17 @@ spring:
         max-wait: 2000ms
         min-idle: 0
 
+# actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 # mybatis plus
 mybatis-plus:
-    configuration:
-      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:mapper/*/*.xml
   type-aliases-package: cn.tellsea.freestyle.system.entity
   global-config:
