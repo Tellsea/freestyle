@@ -1,7 +1,11 @@
 package cn.tellsea.freestyle;
 
+import cn.tellsea.freestyle.system.entity.UserInfo;
 import cn.tellsea.freestyle.system.mapper.UserInfoMapper;
 import com.alibaba.druid.filter.config.ConfigTools;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
