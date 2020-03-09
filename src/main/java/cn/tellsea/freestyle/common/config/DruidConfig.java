@@ -21,17 +21,17 @@ import java.util.Map;
  * @author Tellsea
  * @date 2019/7/13
  */
-@Slf4j
-@Configuration
+//@Slf4j
+//@Configuration
 public class DruidConfig {
 
-    @ConfigurationProperties(prefix = "spring.datasource")
-    @Bean
+//    @ConfigurationProperties(prefix = "spring.datasource")
+//    @Bean
     public DataSource dataSource() {
         return new DruidDataSource();
     }
 
-    @Bean
+//    @Bean
     public ServletRegistrationBean statViewServlet() {
         ServletRegistrationBean bean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
         Map<String, String> initParams = new HashMap<>(16);
@@ -45,7 +45,7 @@ public class DruidConfig {
         return bean;
     }
 
-    @Bean
+//    @Bean
     public FilterRegistrationBean filterRegistrationBean() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new WebStatFilter());

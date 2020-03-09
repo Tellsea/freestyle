@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Configuration;
  * @author: Tellsea
  * @date : 2020/3/2
  */
-@Configuration
-@MapperScan("cn.tellsea.freestyle.*.mapper")
+//@Configuration
+//@MapperScan("cn.tellsea.freestyle.*.mapper")
 public class MybatisPlusConfig {
 
     /**
@@ -20,7 +20,7 @@ public class MybatisPlusConfig {
      *
      * @return
      */
-    @Bean
+//    @Bean
     public PaginationInterceptor paginationInterceptor() {
         return new PaginationInterceptor();
     }

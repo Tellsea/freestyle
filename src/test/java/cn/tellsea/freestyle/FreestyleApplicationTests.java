@@ -1,6 +1,8 @@
 package cn.tellsea.freestyle;
 
+import cn.tellsea.freestyle.system.entity.Student;
 import cn.tellsea.freestyle.system.entity.UserInfo;
+import cn.tellsea.freestyle.system.mapper.StudentMapper;
 import cn.tellsea.freestyle.system.mapper.UserInfoMapper;
 import com.alibaba.druid.filter.config.ConfigTools;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -10,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 @SpringBootTest
 @MapperScan("cn.tellsea.freestyle.*.mapper")
@@ -82,5 +86,14 @@ class FreestyleApplicationTests {
         System.out.println("密文:" + password);
         String decryptPassword = ConfigTools.decrypt(publicKey, password);
         System.out.println("解密:" + decryptPassword);
+    }
+
+    @Autowired
+    private StudentMapper studentMapper;
+
+    @Test
+    public void dyDataSource() {
+        List<Student> studentList = studentMapper.selectList(null);
+        studentList.forEach(System.out::println);
     }
 }
