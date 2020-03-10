@@ -62,13 +62,13 @@ public class JwtUtil {
      */
     public static String sign(String username, String password) {
 //        try {
-            Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
-            Algorithm algorithm = Algorithm.HMAC256(password);
-            // 附带username信息
-            return JWT.create()
-                    .withClaim("username", username)
-                    .withExpiresAt(date)
-                    .sign(algorithm);
+        Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
+        Algorithm algorithm = Algorithm.HMAC256(password);
+        // 附带username信息
+        return JWT.create()
+                .withClaim("username", username)
+                .withExpiresAt(date)
+                .sign(algorithm);
 //        } catch (UnsupportedEncodingException e) {
 //            return null;
 //        }

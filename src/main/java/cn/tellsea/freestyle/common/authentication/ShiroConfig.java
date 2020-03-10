@@ -29,16 +29,11 @@ public class ShiroConfig {
     @Bean("securityManager")
     public DefaultWebSecurityManager getManager(ShiroRealm realm) {
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
-        /*
-         * 关闭shiro自带的session，详情见文档
-         * http://shiro.apache.org/session-management.html#SessionManagement-StatelessApplications%28Sessionless%29
-         */
         DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
         DefaultSessionStorageEvaluator defaultSessionStorageEvaluator = new DefaultSessionStorageEvaluator();
         defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
         subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
         manager.setSubjectDAO(subjectDAO);
-        // 使用自己的realm
         manager.setRealm(realm);
         return manager;
     }
@@ -46,21 +41,14 @@ public class ShiroConfig {
     @Bean("shiroFilter")
     public ShiroFilterFactoryBean factory(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
-        // 添加自己的过滤器并且取名为jwt
         Map<String, Filter> filterMap = new HashMap<>(16);
         filterMap.put("jwt", new JwtFilter());
         factoryBean.setFilters(filterMap);
         factoryBean.setSecurityManager(securityManager);
         factoryBean.setUnauthorizedUrl("/401");
-
-        /*
-         * 自定义url规则
-         * http://shiro.apache.org/web.html#urls-
-         */
         Map<String, String> filterRuleMap = new HashMap<>(16);
-        // 所有请求通过我们自己的JWT Filter
+        filterRuleMap.put("/druid/**", "anon");
         filterRuleMap.put("/**", "jwt");
-        // 访问401和404页面不通过我们的Filter
         filterRuleMap.put("/401", "anon");
         factoryBean.setFilterChainDefinitionMap(filterRuleMap);
         return factoryBean;

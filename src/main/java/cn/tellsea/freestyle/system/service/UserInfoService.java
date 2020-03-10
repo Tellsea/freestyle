@@ -6,11 +6,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.Set;
 
 /**
-* 用户表 Service接口
-*
-* @author Tellsea
-* @date 2020-03-04
-*/
+ * 用户表 Service接口
+ *
+ * @author Tellsea
+ * @date 2020-03-04
+ */
 public interface UserInfoService extends IService<UserInfo> {
 
     Set<String> getRoleByUserName(String userName);

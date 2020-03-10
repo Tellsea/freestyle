@@ -1,6 +1,7 @@
 package cn.tellsea.freestyle.system.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -10,17 +11,20 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
+ * 学生表 实体类
+ *
  * @author Tellsea
  * @date 2020/3/10
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("role_info")
+@TableName("student")
 public class Student implements Serializable {
 
     @TableId(value = "id", type = IdType.AUTO)
     private int id;
 
+    @TableField("name")
     private String name;
 }

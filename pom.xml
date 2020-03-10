@@ -79,7 +79,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.1.21</version>
+            <version>1.1.17</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
@@ -89,6 +89,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.47</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -110,11 +111,6 @@
         </dependency>
 
         <!-- 权限相关工具 -->
-        <!--<dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring-boot-starter</artifactId>
-            <version>1.5.1</version>
-        </dependency>-->
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
@@ -183,5 +179,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

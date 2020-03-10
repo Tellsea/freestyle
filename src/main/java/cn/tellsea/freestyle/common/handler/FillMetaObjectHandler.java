@@ -21,8 +21,8 @@ public class FillMetaObjectHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
         // boolean hasSetter = metaObject.hasSetter("createTime");
         // if (hasSetter) {
-            log.info("FillMetaObjectHandler 开始自动插入新增 ...");
-            this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
+        log.info("FillMetaObjectHandler 开始自动插入新增 ...");
+        this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
         // }
     }
 

@@ -7,11 +7,11 @@ import ${superServiceImplClassPackage};
 import org.springframework.stereotype.Service;
 
 /**
-* ${table.comment!} Service接口实现类
-*
-* @author ${author}
-* @date ${date}
-*/
+ * ${table.comment!} Service接口实现类
+ *
+ * @author ${author}
+ * @date ${date}
+ */
 @Service
 <#if kotlin>
 open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {

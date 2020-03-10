@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Vue Freestyle 启动类
+ * Freestyle 启动类
  *
  * @author: Tellsea
  * @date : 2020/3/2

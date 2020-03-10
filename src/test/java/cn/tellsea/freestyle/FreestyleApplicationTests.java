@@ -2,21 +2,19 @@ package cn.tellsea.freestyle;
 
 import cn.tellsea.freestyle.system.entity.Student;
 import cn.tellsea.freestyle.system.entity.UserInfo;
-import cn.tellsea.freestyle.system.mapper.StudentMapper;
 import cn.tellsea.freestyle.system.mapper.UserInfoMapper;
-import com.alibaba.druid.filter.config.ConfigTools;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import cn.tellsea.freestyle.system.service.StudentService;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 @SpringBootTest
 @MapperScan("cn.tellsea.freestyle.*.mapper")
+@EnableAutoConfiguration
 class FreestyleApplicationTests {
 
     @Autowired
@@ -75,7 +73,7 @@ class FreestyleApplicationTests {
 
     @Test
     public void druidEncrypt() throws Exception {
-        String password = "Root123!@#";
+        /*String password = "Root123!@#";
         System.out.println("明文: " + password);
         String[] keyPair = ConfigTools.genKeyPair(512);
         String privateKey = keyPair[0];
@@ -85,15 +83,15 @@ class FreestyleApplicationTests {
         System.out.println("公钥:" + publicKey);
         System.out.println("密文:" + password);
         String decryptPassword = ConfigTools.decrypt(publicKey, password);
-        System.out.println("解密:" + decryptPassword);
+        System.out.println("解密:" + decryptPassword);*/
     }
 
     @Autowired
-    private StudentMapper studentMapper;
+    private StudentService studentService;
 
     @Test
     public void dyDataSource() {
-        List<Student> studentList = studentMapper.selectList(null);
+        List<Student> studentList = studentService.list();
         studentList.forEach(System.out::println);
     }
 }
