@@ -47,7 +47,6 @@ public class ShiroConfig {
         factoryBean.setSecurityManager(securityManager);
         factoryBean.setUnauthorizedUrl("/401");
         Map<String, String> filterRuleMap = new HashMap<>(16);
-        filterRuleMap.put("/druid/**", "anon");
         filterRuleMap.put("/**", "jwt");
         filterRuleMap.put("/401", "anon");
         factoryBean.setFilterChainDefinitionMap(filterRuleMap);
