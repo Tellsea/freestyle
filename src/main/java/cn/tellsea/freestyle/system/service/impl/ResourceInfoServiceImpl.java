@@ -6,6 +6,8 @@ import cn.tellsea.freestyle.system.service.ResourceInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 资源表 Service接口实现类
  *
@@ -15,4 +17,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ResourceInfoServiceImpl extends ServiceImpl<ResourceInfoMapper, ResourceInfo> implements ResourceInfoService {
 
+    @Override
+    public List<ResourceInfo> getByUserName(String userName) {
+        return this.baseMapper.getByUserName(userName);
+    }
 }

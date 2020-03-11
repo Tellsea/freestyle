@@ -6,6 +6,8 @@ import cn.tellsea.freestyle.system.service.RoleInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 角色表 Service接口实现类
  *
@@ -15,4 +17,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleInfoServiceImpl extends ServiceImpl<RoleInfoMapper, RoleInfo> implements RoleInfoService {
 
+    @Override
+    public List<RoleInfo> getByUserName(String userName) {
+        return this.baseMapper.getByUserName(userName);
+    }
 }

@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.tellsea.freestyle.system.mapper.RoleInfoMapper">
 
+    <select id="getByUserName" resultType="cn.tellsea.freestyle.system.entity.RoleInfo">
+        select c.*
+        from user_info a
+        left join map_user_role b on a.id = b.user_id
+        left join role_info c on b.role_id = c.id
+        where a.user_name = #{userName}
+    </select>
 </mapper>

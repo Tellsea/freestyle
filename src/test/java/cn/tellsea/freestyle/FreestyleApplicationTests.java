@@ -1,8 +1,10 @@
 package cn.tellsea.freestyle;
 
+import cn.tellsea.freestyle.system.entity.ResourceInfo;
 import cn.tellsea.freestyle.system.entity.Student;
 import cn.tellsea.freestyle.system.entity.UserInfo;
 import cn.tellsea.freestyle.system.mapper.UserInfoMapper;
+import cn.tellsea.freestyle.system.service.ResourceInfoService;
 import cn.tellsea.freestyle.system.service.StudentService;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
@@ -11,6 +13,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SpringBootTest
 @MapperScan("cn.tellsea.freestyle.*.mapper")
@@ -88,10 +91,19 @@ class FreestyleApplicationTests {
 
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private ResourceInfoService resourceInfoService;
 
     @Test
     public void dyDataSource() {
         List<Student> studentList = studentService.list();
         studentList.forEach(System.out::println);
+    }
+
+    @Test
+    public void stream() {
+        List<ResourceInfo> list = resourceInfoService.list();
+        List<String> resString = list.stream().map(ResourceInfo::getPerms).distinct().collect(Collectors.toList());
+        resString.forEach(System.out::println);
     }
 }

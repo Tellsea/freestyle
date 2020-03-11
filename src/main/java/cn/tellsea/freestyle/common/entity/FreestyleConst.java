@@ -16,4 +16,6 @@ public class FreestyleConst {
      * 从数据源
      */
     public static final String DB_SLAVE = "slave";
+
+    public static final String TOKEN_PREFIX = "freestyle.token.";
 }

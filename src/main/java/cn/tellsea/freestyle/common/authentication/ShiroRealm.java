@@ -2,8 +2,11 @@ package cn.tellsea.freestyle.common.authentication;
 
 import cn.tellsea.freestyle.common.properties.FreestyleProperties;
 import cn.tellsea.freestyle.common.utils.RedisUtil;
+import cn.tellsea.freestyle.system.entity.ResourceInfo;
+import cn.tellsea.freestyle.system.entity.RoleInfo;
 import cn.tellsea.freestyle.system.entity.UserInfo;
-import cn.tellsea.freestyle.system.service.UserInfoService;
+import cn.tellsea.freestyle.system.service.ResourceInfoService;
+import cn.tellsea.freestyle.system.service.RoleInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -18,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * shiro 验证域
@@ -30,7 +34,9 @@ import java.util.Set;
 public class ShiroRealm extends AuthorizingRealm {
 
     @Autowired
-    private UserInfoService userInfoService;
+    private RoleInfoService roleInfoService;
+    @Autowired
+    private ResourceInfoService resourceInfoService;
     @Autowired
     private RedisUtil redisUtil;
     @Autowired
@@ -56,10 +62,10 @@ public class ShiroRealm extends AuthorizingRealm {
         String token = (String) principal.getPrimaryPrincipal();
         String userName = JwtUtil.getUsername(token);
         // 设置角色集合
-        Set<String> roleSet = userInfoService.getRoleByUserName(userName);
+        Set<String> roleSet = roleInfoService.getByUserName(userName).stream().map(RoleInfo::getName).collect(Collectors.toSet());
         info.addRoles(roleSet);
         // 设置权限集合
-        Set<String> permissionSet = userInfoService.getPermissonByUserName(userName);
+        Set<String> permissionSet = resourceInfoService.getByUserName(userName).stream().map(ResourceInfo::getPerms).collect(Collectors.toSet());
         info.setStringPermissions(permissionSet);
         return info;
     }
