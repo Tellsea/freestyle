@@ -86,7 +86,7 @@ public class IpUtil {
         }
         // 如果是多级代理，那么取第一个ip为客户ip
         if (ip != null && ip.indexOf(",") != -1) {
-            ip = ip.substring(ip.lastIndexOf(",") + 1, ip.length()).trim();
+            ip = ip.substring(ip.lastIndexOf(",") + 1).trim();
         }
         return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
     }

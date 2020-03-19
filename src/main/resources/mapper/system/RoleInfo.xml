@@ -9,4 +9,26 @@
         left join role_info c on b.role_id = c.id
         where a.user_name = #{userName}
     </select>
+
+    <select id="countByTable" resultType="java.lang.Integer">
+        select count(*)
+        from role_info a
+        where 1 = 1
+        <if test="entity.name != null and entity.name != ''">
+            and a.name like concat('%',#{entity.name},'%')
+        </if>
+    </select>
+
+    <select id="listByTable" resultType="cn.tellsea.freestyle.system.entity.RoleInfo">
+        select a.*, GROUP_CONCAT(c.id) resource_ids, GROUP_CONCAT(c.name) resource_name
+        from role_info a
+        left join map_role_resource b on a.id = b.role_id
+        left join resource_info c on b.resource_id = c.id
+        where 1 = 1
+        <if test="entity.name != null and entity.name != ''">
+            and a.name like concat('%',#{entity.name},'%')
+        </if>
+        group by a.id
+        limit #{entity.page}, #{entity.limit}
+    </select>
 </mapper>

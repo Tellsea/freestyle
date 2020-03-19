@@ -2,16 +2,18 @@ package cn.tellsea.freestyle;
 
 import cn.tellsea.freestyle.system.entity.ResourceInfo;
 import cn.tellsea.freestyle.system.entity.Student;
-import cn.tellsea.freestyle.system.entity.UserInfo;
 import cn.tellsea.freestyle.system.mapper.UserInfoMapper;
 import cn.tellsea.freestyle.system.service.ResourceInfoService;
 import cn.tellsea.freestyle.system.service.StudentService;
+import com.alibaba.fastjson.JSON;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -105,5 +107,17 @@ class FreestyleApplicationTests {
         List<ResourceInfo> list = resourceInfoService.list();
         List<String> resString = list.stream().map(ResourceInfo::getPerms).distinct().collect(Collectors.toList());
         resString.forEach(System.out::println);
+    }
+
+    @Test
+    public void json() {
+        // 结论，会丢失json
+        String jsonString = JSON.toJSONString(
+                new ResourceInfo()
+                        .setName("tellsea")
+                        .setChildren(Arrays.asList(
+                                new ResourceInfo().setName("tom"),
+                                new ResourceInfo().setName("susan"))));
+        System.out.println(jsonString);
     }
 }

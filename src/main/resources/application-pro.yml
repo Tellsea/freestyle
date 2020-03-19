@@ -1,0 +1,87 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /freestyle
+spring:
+  autoconfigure:
+    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+  datasource:
+    druid:
+      stat-view-servlet:
+        url-pattern: /druid/*
+        allow: 127.0.0.1
+        deny:
+        reset-enable: false
+        login-username: tellsea
+        login-password: 123456
+    dynamic:
+      primary: master
+      p6spy: false
+      datasource:
+        master:
+          driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+          url: jdbc:p6spy:mysql://47.107.171.232:3306/freestyle?serverTimezone=UTC&useUnicode=true&charaterEncoding=utf-8&useSSL=false
+          username: root
+          password: Root123!@#
+        slave:
+          driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+          url: jdbc:p6spy:mysql://47.107.171.232:3306/freestyle_test?serverTimezone=UTC&useUnicode=true&charaterEncoding=utf-8&useSSL=false
+          username: root
+          password: Root123!@#
+      druid:
+        initial-size: 5
+        min-idle: 5
+        maxActive: 20
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,slf4j
+        connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+        web-stat-filter:
+          enabled: true
+          url-pattern: /*
+          exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+
+  # redis
+  redis:
+    database: 0
+    host: 127.0.0.1
+    password: ''
+    port: 6379
+    timeout: 10000ms
+    lettuce:
+      pool:
+        max-idle: 8
+        max-wait: 2000ms
+        min-idle: 0
+
+# mybatis plus
+mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*/*.xml
+  type-aliases-package: cn.tellsea.freestyle.system.entity
+  global-config:
+    db-config:
+      logic-not-delete-value: 1
+      logic-delete-value: 2
+    banner: false
+
+# freestyle
+freestyle:
+  swagger:
+    enabled: true
+    version: 1.0
+    author: tellsea
+    url: https://github.com/tellsea
+    email: 3210054449@qq.com
+    description: 更多项目：https://github.com/tellsea
+    termsOfServiceUrl: https://www.apache.org/licenses/LICENSE-2.0.html
+  shiro:
+    jwtTokenTimeOut: 3600

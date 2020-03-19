@@ -1,7 +1,6 @@
 package cn.tellsea.freestyle.common.aspect;
 
 import cn.tellsea.freestyle.common.annotation.ControllerLog;
-import cn.tellsea.freestyle.common.entity.ResponseResult;
 import cn.tellsea.freestyle.common.utils.AddressUtil;
 import cn.tellsea.freestyle.common.utils.IpUtil;
 import cn.tellsea.freestyle.system.entity.SystemLog;
@@ -39,20 +38,23 @@ import java.util.Map;
 @Component
 public class ControllerLogAspect {
 
-    @Autowired
-    private SystemLogService systemLogService;
+    private final SystemLogService systemLogService;
+
+    public ControllerLogAspect(SystemLogService systemLogService) {
+        this.systemLogService = systemLogService;
+    }
 
     @Pointcut("execution(public * cn.tellsea.freestyle.*.controller..*(..))")
     public void controllerLog() {
     }
 
     @Around(value = "controllerLog()")
-    public ResponseResult doAround(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         // 1、记录执行时间
         long startTime = System.currentTimeMillis();
-        ResponseResult result = (ResponseResult) joinPoint.proceed(joinPoint.getArgs());
+        Object proceed = joinPoint.proceed(joinPoint.getArgs());
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
         // 2、有无日志监控注解，有则输出
@@ -79,7 +81,7 @@ public class ControllerLogAspect {
             systemLogService.save(systemLog);
             System.out.println("异步");
         }
-        return result;
+        return proceed;
     }
 
     /**

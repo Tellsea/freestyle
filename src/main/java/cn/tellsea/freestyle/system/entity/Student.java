@@ -1,5 +1,6 @@
 package cn.tellsea.freestyle.system.entity;
 
+import cn.tellsea.freestyle.common.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -20,7 +21,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("student")
-public class Student implements Serializable {
+public class Student extends BaseEntity {
 
     @TableId(value = "id", type = IdType.AUTO)
     private int id;

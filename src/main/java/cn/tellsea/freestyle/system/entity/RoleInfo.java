@@ -1,5 +1,6 @@
 package cn.tellsea.freestyle.system.entity;
 
+import cn.tellsea.freestyle.common.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -21,9 +22,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("role_info")
-public class RoleInfo implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class RoleInfo extends BaseEntity {
 
     /**
      * 角色ID
@@ -42,4 +41,10 @@ public class RoleInfo implements Serializable {
      */
     @TableField("description")
     private String description;
+
+    @TableField(exist = false)
+    private String resourceIds;
+
+    @TableField(exist = false)
+    private String resourceName;
 }

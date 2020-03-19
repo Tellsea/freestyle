@@ -2,9 +2,7 @@ package cn.tellsea.freestyle.common.entity;
 
 import cn.tellsea.freestyle.common.enums.BaseEnums;
 import cn.tellsea.freestyle.common.enums.StatusEnums;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -22,6 +20,8 @@ public class ResponseResult implements Serializable {
     private int code;
 
     private String message;
+
+    private int count;
 
     private Object data;
 
@@ -78,6 +78,13 @@ public class ResponseResult implements Serializable {
     public static ResponseResult error(BaseEnums baseEnums, Object data) {
         return new ResponseResult().setCode(baseEnums.getCode())
                 .setMessage(baseEnums.getInfo())
+                .setData(data);
+    }
+
+    public static ResponseResult table(int count, Object data) {
+        return new ResponseResult().setCode(StatusEnums.SELECT_SUCCESS.getCode())
+                .setMessage(StatusEnums.SELECT_SUCCESS.getInfo())
+                .setCount(count)
                 .setData(data);
     }
 }

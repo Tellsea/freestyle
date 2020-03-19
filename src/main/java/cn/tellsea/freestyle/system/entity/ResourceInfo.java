@@ -1,11 +1,13 @@
 package cn.tellsea.freestyle.system.entity;
 
+import cn.tellsea.freestyle.common.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,9 +23,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("resource_info")
-public class ResourceInfo implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class ResourceInfo extends BaseEntity {
 
     /**
      * 资源编号
@@ -78,4 +78,7 @@ public class ResourceInfo implements Serializable {
      */
     @TableField("is_leaf")
     private Boolean isLeaf;
+
+    @TableField(exist = false)
+    private List<ResourceInfo> children;
 }

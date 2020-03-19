@@ -80,7 +80,7 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken auth) throws AuthenticationException {
         String token = (String) auth.getCredentials();
-        // 解密获得userName
+        // 解密获得userName您还没有登录呦
         String userName = JwtUtil.getUsername(token);
         if (StringUtils.isEmpty(userName)) {
             throw new AuthenticationException("令牌无效");

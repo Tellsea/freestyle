@@ -17,6 +17,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,33 +55,46 @@ public class LoginController {
 
     @ApiOperation("登录")
     @PostMapping("login")
-    public ResponseResult login(@NotNull(message = "用户名不能为空") @RequestParam("userName") String userName,
+    public ResponseResult login(@NotNull(message = "用户名不能为空") @RequestParam("username") String username,
                                 @NotNull(message = "密码不能为空") @RequestParam("password") String password,
                                 HttpServletRequest request) {
-        UserInfo userInfo = userInfoService.getByUserName(userName);
+        UserInfo userInfo = userInfoService.getByUserName(username);
         if (userInfo == null) {
             return ResponseResult.errorMsg("用户不存在");
         }
         if (!StringUtils.equals(userInfo.getPassword(), password)) {
             return ResponseResult.errorMsg("密码错误");
         } else {
-            String token = JwtUtil.sign(userName, password);
+            String token = JwtUtil.sign(username, password);
             String ip = IpUtil.getClientIp(request);
-            redisUtil.set(FreestyleConst.TOKEN_PREFIX + token + StringPool.DOT + ip, userInfo, properties.getShiro().getJwtTokenTimeOut());
+            //redisUtil.set(FreestyleConst.TOKEN_PREFIX + token + StringPool.DOT + ip, userInfo, properties.getShiro().getJwtTokenTimeOut());
+            redisUtil.set(token, userInfo, properties.getShiro().getJwtTokenTimeOut());
             // 返回前端所需数据
             Map<String, Object> map = new HashMap<>(16);
             map.put("token", token);
             map.put("userInfo", userInfo);
-            map.put("roleList", roleInfoService.getByUserName(userName).stream().map(RoleInfo::getName).collect(Collectors.toSet()));
-            map.put("permissionList", resourceInfoService.getByUserName(userName).stream().map(ResourceInfo::getPerms).collect(Collectors.toSet()));
-            map.put("routerList", resourceInfoService.getByUserName(userName));
+            map.put("roleList", roleInfoService.getByUserName(username).stream().map(RoleInfo::getName).collect(Collectors.toSet()));
+            map.put("permissionList", resourceInfoService.getByUserName(username).stream().map(ResourceInfo::getPerms).collect(Collectors.toSet()));
+            map.put("routerList", resourceInfoService.getByUserName(username));
             return ResponseResult.success(map);
         }
     }
 
+    @ApiOperation("根据token获取账号信息")
+    @GetMapping("getUserInfoByUserName")
+    public ResponseResult getUserInfo(@NotNull(message = "token不能为空") @RequestParam("token") String token) {
+
+    }
+
+
+
+
+
     @GetMapping("admin")
     @RequiresRoles("admin")
     public ResponseResult admin() throws FreestyleException {
+        String token = (String) SecurityUtils.getSubject().getPrincipal();
+        System.out.println(token);
         try {
             System.out.println(1 / 0);
         } catch (Exception e) {

@@ -1,5 +1,6 @@
 package cn.tellsea.freestyle.system.entity;
 
+import cn.tellsea.freestyle.common.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -21,9 +22,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("map_user_role")
-public class MapUserRole implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class MapUserRole extends BaseEntity {
 
     /**
      * 主键

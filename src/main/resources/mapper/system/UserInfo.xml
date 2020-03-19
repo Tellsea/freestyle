@@ -2,4 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.tellsea.freestyle.system.mapper.UserInfoMapper">
 
+    <select id="countByTable" resultType="java.lang.Integer">
+        select count(*) from user_info as a
+        left join map_user_role b on a.id = b.user_id
+        left join role_info c on b.role_id = c.id
+        left join user_info d on a.create_user = d.id
+        where a.`status` != 3
+        <if test="entity.userName != null and entity.userName != ''">
+            and a.user_name like concat('%',#{entity.userName},'%')
+        </if>
+        <if test="entity.nickName != null and entity.nickName != ''">
+            and a.nick_name like concat('%',#{entity.nickName},'%')
+        </if>
+        <if test="entity.phone != null and entity.phone != ''">
+            and a.phone like concat('%',#{entity.phone},'%')
+        </if>
+        <if test="entity.status > 0">
+            and a.status = #{entity.status}
+        </if>
+    </select>
+
+    <select id="listByTable" resultType="cn.tellsea.freestyle.system.entity.UserInfo">
+        select a.id, a.user_name, a.nick_name, a.`password`, a.avatar, a.phone, a.sex, a.description,
+        a.create_user, a.create_time, a.login_times, a.last_login_time, a.`status`,
+        group_concat(c.`name`) role_name, d.user_name create_user_name
+        from user_info as a
+        left join map_user_role b on a.id = b.user_id
+        left join role_info c on b.role_id = c.id
+        left join user_info d on a.create_user = d.id
+        where a.`status` != 3
+        <if test="entity.userName != null and entity.userName != ''">
+            and a.user_name like concat('%',#{entity.userName},'%')
+        </if>
+        <if test="entity.nickName != null and entity.nickName != ''">
+            and a.nick_name like concat('%',#{entity.nickName},'%')
+        </if>
+        <if test="entity.phone != null and entity.phone != ''">
+            and a.phone like concat('%',#{entity.phone},'%')
+        </if>
+        <if test="entity.status > 0">
+            and a.status = #{entity.status}
+        </if>
+        group by a.id
+        limit #{entity.page}, #{entity.limit}
+    </select>
 </mapper>

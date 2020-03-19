@@ -14,4 +14,6 @@ import java.util.List;
 public interface ResourceInfoService extends IService<ResourceInfo> {
 
     List<ResourceInfo> getByUserName(String userName);
+
+    List<ResourceInfo> listByTree();
 }

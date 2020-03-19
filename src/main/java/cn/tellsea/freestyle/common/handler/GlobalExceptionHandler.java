@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseResult handleException(Exception e) {
-        log.error("Exception：{}", e);
+        log.error("Exception：{}", "服务器错误");
         e.printStackTrace();
         return ResponseResult.error(StatusEnums.SERVER_ERROR);
     }

@@ -76,6 +76,7 @@ public class TransactionAdviceConfig {
 
         nameMap.put("add*", requireRule);
         nameMap.put("save*", requireRule);
+        nameMap.put("create*", requireRule);
         nameMap.put("insert*", requireRule);
         nameMap.put("update*", requireRule);
         nameMap.put("delete*", requireRule);

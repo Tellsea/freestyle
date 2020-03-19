@@ -1,11 +1,10 @@
 package cn.tellsea.freestyle.system.entity;
 
+import cn.tellsea.freestyle.common.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-
-import java.io.Serializable;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,9 +20,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("map_role_resource")
-public class MapRoleResource implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class MapRoleResource extends BaseEntity {
 
     /**
      * 主键

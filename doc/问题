@@ -13,3 +13,18 @@ druid 配置
 https://blog.csdn.net/weixin_45132238/article/details/91043158
 mybatis动态数据源
 https://blog.csdn.net/m0_37125796/article/details/91539933
+
+代码生成器：
+    entity 继承 BaseEntity
+    逻辑删除字段修改
+
+功能修改：
+    权限管理：树表格
+    用户管理：树 + 表格
+
+功能：
+    字典管理：总字典，字典
+    操作日志：（id -- 日志编号）
+    登录日志：（id -- 访问编号）
+    通知通告：标题，类型，状态
+    系统监控：在线用户、数据监控、服务监控

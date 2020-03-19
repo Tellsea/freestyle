@@ -1,5 +1,6 @@
 package cn.tellsea.freestyle.system.service;
 
+import cn.tellsea.freestyle.common.entity.ResponseResult;
 import cn.tellsea.freestyle.system.entity.RoleInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -14,4 +15,12 @@ import java.util.List;
 public interface RoleInfoService extends IService<RoleInfo> {
 
     List<RoleInfo> getByUserName(String userName);
+
+    ResponseResult listByTable(RoleInfo roleInfo);
+
+    void saveRole(RoleInfo roleInfo);
+
+    void updateRole(RoleInfo roleInfo);
+
+    void deleteRole(int id);
 }

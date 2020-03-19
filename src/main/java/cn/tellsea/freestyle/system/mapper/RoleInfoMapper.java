@@ -2,6 +2,7 @@ package cn.tellsea.freestyle.system.mapper;
 
 import cn.tellsea.freestyle.system.entity.RoleInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,4 +15,8 @@ import java.util.List;
 public interface RoleInfoMapper extends BaseMapper<RoleInfo> {
 
     List<RoleInfo> getByUserName(String userName);
+
+    int countByTable(@Param("entity") RoleInfo roleInfo);
+
+    List<RoleInfo> listByTable(@Param("entity")RoleInfo roleInfo);
 }

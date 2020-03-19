@@ -1,23 +1,15 @@
 package cn.tellsea.freestyle.system.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-
-import java.time.LocalDateTime;
-
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableField;
-
-import java.io.Serializable;
-import java.util.Date;
-
+import cn.tellsea.freestyle.common.entity.BaseEntity;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * 用户表 实体类
@@ -29,9 +21,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("user_info")
-public class UserInfo implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class UserInfo extends BaseEntity {
 
     /**
      * 用户ID
@@ -90,18 +80,6 @@ public class UserInfo implements Serializable {
     private String description;
 
     /**
-     * 创建人
-     */
-    @TableField("create_user")
-    private Integer createUser;
-
-    /**
-     * 创建时间
-     */
-    @TableField("create_time")
-    private Date createTime;
-
-    /**
      * 登录次数
      */
     @TableField("login_times")
@@ -111,12 +89,35 @@ public class UserInfo implements Serializable {
      * 最后登录时间
      */
     @TableField("last_login_time")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date lastLoginTime;
+
+    /**
+     * 创建人
+     */
+    @TableField("create_user")
+    private Integer createUser;
+
+    /**
+     * 创建时间
+     */
+    @TableField("create_time")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
 
     /**
      * 状态(1正常，2删除)
      */
     @TableField("status")
     @TableLogic
-    private Boolean status;
+    private int status;
+
+    @TableField(exist = false)
+    private String roleIds;
+
+    @TableField(exist = false)
+    private String roleName;
+
+    @TableField(exist = false)
+    private String createUserName;
 }

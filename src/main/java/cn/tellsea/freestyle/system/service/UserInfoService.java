@@ -1,5 +1,6 @@
 package cn.tellsea.freestyle.system.service;
 
+import cn.tellsea.freestyle.common.entity.ResponseResult;
 import cn.tellsea.freestyle.system.entity.UserInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -12,4 +13,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface UserInfoService extends IService<UserInfo> {
 
     UserInfo getByUserName(String userName);
+
+    ResponseResult listByTable(UserInfo userInfo);
+
+    void saveUserInfo(UserInfo userInfo);
+
+    void updateUserInfo(UserInfo userInfo);
+
+    void updateStatus(UserInfo userInfo);
 }
