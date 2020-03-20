@@ -1,7 +1,6 @@
 package cn.tellsea.freestyle.system.controller;
 
 import cn.tellsea.freestyle.common.authentication.JwtUtil;
-import cn.tellsea.freestyle.common.entity.FreestyleConst;
 import cn.tellsea.freestyle.common.entity.ResponseResult;
 import cn.tellsea.freestyle.common.exception.FreestyleException;
 import cn.tellsea.freestyle.common.properties.FreestyleProperties;
@@ -13,11 +12,11 @@ import cn.tellsea.freestyle.system.entity.UserInfo;
 import cn.tellsea.freestyle.system.service.ResourceInfoService;
 import cn.tellsea.freestyle.system.service.RoleInfoService;
 import cn.tellsea.freestyle.system.service.UserInfoService;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +26,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -68,26 +65,31 @@ public class LoginController {
             String token = JwtUtil.sign(username, password);
             String ip = IpUtil.getClientIp(request);
             //redisUtil.set(FreestyleConst.TOKEN_PREFIX + token + StringPool.DOT + ip, userInfo, properties.getShiro().getJwtTokenTimeOut());
-            redisUtil.set(token, userInfo, properties.getShiro().getJwtTokenTimeOut());
             // 返回前端所需数据
-            Map<String, Object> map = new HashMap<>(16);
-            map.put("token", token);
-            map.put("userInfo", userInfo);
-            map.put("roleList", roleInfoService.getByUserName(username).stream().map(RoleInfo::getName).collect(Collectors.toSet()));
-            map.put("permissionList", resourceInfoService.getByUserName(username).stream().map(ResourceInfo::getPerms).collect(Collectors.toSet()));
-            map.put("routerList", resourceInfoService.getByUserName(username));
-            return ResponseResult.success(map);
+//            Map<String, Object> map = new HashMap<>(16);
+//            map.put("token", token);
+//            map.put("userInfo", userInfo);
+//            map.put("roleList", roleInfoService.getByUserName(username).stream().map(RoleInfo::getName).collect(Collectors.toSet()));
+//            map.put("permissionList", resourceInfoService.getByUserName(username).stream().map(ResourceInfo::getPerms).collect(Collectors.toSet()));
+//            map.put("routerList", resourceInfoService.getByUserName(username));
+            userInfo.setRoles(roleInfoService.getByUserName(username).stream().map(RoleInfo::getName).collect(Collectors.toSet()));
+            userInfo.setPermissions(resourceInfoService.getByUserName(username).stream().map(ResourceInfo::getPerms).collect(Collectors.toSet()));
+            userInfo.setMenus(resourceInfoService.getByUserName(username));
+            redisUtil.set(token, userInfo, properties.getShiro().getJwtTokenTimeOut());
+            return ResponseResult.success(token);
         }
     }
 
-    @ApiOperation("根据token获取账号信息")
-    @GetMapping("getUserInfoByUserName")
+    @ApiOperation("根据token获取用户信息")
+    @GetMapping("getUserInfo")
     public ResponseResult getUserInfo(@NotNull(message = "token不能为空") @RequestParam("token") String token) {
-
+        // 能进入这里，说明token有效，根据token查询用户信息
+        UserInfo userInfo = (UserInfo) redisUtil.get(token);
+        if (userInfo == null) {
+            throw new AuthenticationException(" 查询不到用户信息");
+        }
+        return ResponseResult.success(userInfo);
     }
-
-
-
 
 
     @GetMapping("admin")

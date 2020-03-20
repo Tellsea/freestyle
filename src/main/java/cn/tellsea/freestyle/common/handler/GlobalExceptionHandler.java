@@ -113,7 +113,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = UnauthenticatedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ResponseResult handleUnauthenticatedException(UnauthenticatedException e) {
-        log.error("UnauthenticatedException：{}", "您还没有登录呦！");
-        return ResponseResult.errorMsg("您还没有登录呦！");
+        log.error("UnauthenticatedException：{}", "授权异常，请先登录");
+        if (StringUtils.isNotEmpty(e.getMessage())) {
+            return ResponseResult.errorMsg(e.getMessage());
+        }
+        return ResponseResult.errorMsg("操作异常，请先登录");
     }
 }

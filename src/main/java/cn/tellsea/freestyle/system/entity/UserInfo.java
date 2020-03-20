@@ -10,6 +10,8 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 用户表 实体类
@@ -120,4 +122,13 @@ public class UserInfo extends BaseEntity {
 
     @TableField(exist = false)
     private String createUserName;
+
+    @TableField(exist = false)
+    private Set<String> roles;
+
+    @TableField(exist = false)
+    private Set<String> permissions;
+
+    @TableField(exist = false)
+    private List<ResourceInfo> menus;
 }
